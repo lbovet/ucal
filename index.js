@@ -25,7 +25,7 @@ app.get('/cals/:cal', (req, res) => {
                 var opponent = home ? teams[2] : teams[1]
                 opponent = opponent.split(' ').slice(0,2).join(' ')
                 output.push({
-                    title : '🏀' + req.params.cal + (home ? ' < ' : ' > ') + opponent,
+                    title : '🏀 ' + req.params.cal + (home ? ' < ' : ' > ') + opponent,
                     description : node.summary,
                     start : moment(node.start).format('YYYY-M-D-H-m').split("-"),
                     end : moment(node.end).format('YYYY-M-D-H-m').split("-"),
