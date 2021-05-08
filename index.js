@@ -25,11 +25,12 @@ app.get('/cals/:cal', (req, res) => {
                 var opponent = home ? teams[2] : teams[1]
                 opponent = opponent.split(' ').slice(0,2).join(' ')
                 output.push({
+                    uid: node.uid + "-ucal-" + req.params.cal,
                     title : '🏀 ' + req.params.cal + (home ? ' < ' : ' > ') + opponent,
                     description : node.summary,
+                    location: node.location,
                     start : moment(node.start).format('YYYY-M-D-H-m').split("-"),
-                    end : moment(node.end).format('YYYY-M-D-H-m').split("-"),
-                    uid: node.uid + "-ucal-" + req.params.cal
+                    end : moment(node.end).format('YYYY-M-D-H-m').split("-")
                 })
             }
         })
