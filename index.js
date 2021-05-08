@@ -33,6 +33,7 @@ app.get('/cals/:cal', (req, res) => {
                 })
             }
         })
+        res.set('Content-Type', 'text/calendar')
         res.send(ics.createEvents(output).value)
     })
 })
