@@ -15,6 +15,7 @@ const cals = {
 }
 
 app.get('/cals/:cal', (req, res) => {
+    console.log("request on "+req.params.cal+" from "+req.ip)
     result = got(cals[req.params.cal]).then(result => {
         var cal = ical.parseICS(result.body)
         var output = []
