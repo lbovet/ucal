@@ -10,8 +10,7 @@ const app = express()
 const port = 3000
 
 const cals = {
-    'U13': 'https://www.basketplan.ch/exportTeamGamesICAL.do?teamId=557&seasonId=25',
-    'U15': 'https://www.basketplan.ch/exportTeamGamesICAL.do?teamId=172&seasonId=25'
+    'U14A': 'https://www.basketplan.ch/exportTeamGamesICAL.do?teamId=557&seasonId=26'
 }
 
 app.get('/cals/:cal', (req, res) => {
@@ -22,9 +21,16 @@ app.get('/cals/:cal', (req, res) => {
         traverse(cal).forEach(node => {
             if(node && node.type == 'VEVENT') {
                 var teams = node.summary.match(/.*'(.*)'.*'(.*)'/)
-                var home = teams[1].indexOf('Union') != -1
+                var home = teams[1].indexOf('MJ Union') != -1
                 var opponent = home ? teams[2] : teams[1]
-                opponent = opponent.split(' ').slice(0,2).join(' ')
+                opponent = opponent.split(' ')
+                    .filter(s => s != "Basket")
+                    .filter(s => s != "Club")
+                    .filter(s => s != "US")
+                    .filter(s => s != "ES")
+                    .filter(s => s != "Union")
+                    .filter(s => s.indexOf("U14") != 0)
+                    .slice(0,2).join(' ')
                 output.push({
                     uid: node.uid + "-ucal-" + req.params.cal,
                     title : '🏀 ' + req.params.cal + (home ? ' < ' : ' > ') + opponent,
